@@ -1,0 +1,86 @@
+THIRD PARTY NOTICES — lan-ptt
+==============================
+
+本项目整体以 GPL-3.0-or-later 发布（见根目录 LICENSE）。
+以下列出被复用或计划在后续阶段引入的第三方组件、其许可证、版权声明
+与全文位置。许可证全文随本仓库一起分发：
+
+    licenses/Apache-2.0.txt   — Apache License, Version 2.0 全文
+    licenses/BSD-3-Clause.txt — BSD 3-Clause License 全文
+
+--------------------------------------------------------------------
+1. Starlordzz/sunsetripple
+--------------------------------------------------------------------
+来源      https://github.com/Starlordzz/sunsetripple
+版本      commit 0ffd8c40
+许可证    Apache License, Version 2.0（仓库 LICENSE 文件）
+NOTICE    上游仓库无 NOTICE 文件，无需额外分发 NOTICE 内容
+版权      Copyright 2026 Starlordzz（按上游文件与仓库声明保留）
+
+复用范围（当前骨架版本）：
+    lib/core/protocol/frame.dart        — 6 字节帧头编解码
+    lib/core/protocol/frame_type.dart   — 帧类型枚举（已精简）
+
+后续阶段计划移植（见 docs/详细实施方案.md §4.1）：
+    lib/core/transport/{lan_discovery,lan_transport,room_transport}.dart
+    lib/core/session/*.dart
+    lib/core/audio/*、lib/core/platform/*、lib/core/diagnostics/*
+    android/.../audio/{OpusCodec,JitterBuffer}.kt
+    android/.../{PlatformAudioPlugin,IntercomForegroundService,MainActivity}.kt
+    native/CMakeLists.txt 与 native/src/{audio_dsp,ring_buffer,protocol_frame}.*
+
+Apache-2.0 §4 要求：移植文件保留原始版权与许可声明、标注「已修改」。
+逐文件修改说明见 NOTICE.changes；上游许可全文见 licenses/Apache-2.0.txt。
+本项目对上述文件的修改部分以 GPL-3.0-or-later 提供。
+Apache-2.0 与 GPL-3.0 兼容，这正是本项目选择 GPLv3 而非 GPLv2 的原因。
+
+--------------------------------------------------------------------
+2. google/oboe
+--------------------------------------------------------------------
+来源      https://github.com/google/oboe
+许可证    Apache License, Version 2.0 — licenses/Apache-2.0.txt
+版权      Copyright (C) Google LLC 及贡献者
+状态      P1 计划引入（AAudio 低延时 I/O），当前骨架尚未包含其源码
+
+--------------------------------------------------------------------
+3. xiph/opus (libopus)
+--------------------------------------------------------------------
+来源      https://github.com/xiph/opus
+许可证    BSD 3-Clause 风格的 Opus 参考实现许可 — licenses/BSD-3-Clause.txt
+版权      Copyright (c) 2001-2011 Xiph.Org Foundation, Skype Limited,
+          Octasic, Jean-Marc Valin, Timothy B. Terriberry,
+          CSIRO, Gregory Maxwell, Mark Borgerding, Erik de Castro Lopo
+状态      P1 计划引入（替换 P0 的 Concentus 纯 JVM 实现）
+
+--------------------------------------------------------------------
+4. Concentus 1.0.2 (io.github.jaredmdobson:concentus)
+--------------------------------------------------------------------
+来源      https://github.com/lostromb/concentus
+许可证    BSD-3-Clause 风格的 Opus 参考实现许可（含 IETF 名称条款）
+          — licenses/BSD-3-Clause.txt
+状态      P0 计划引入的临时 Opus 实现；P1 换官方 libopus 后该依赖消失
+
+--------------------------------------------------------------------
+5. dhammikamare/android-walkie-talkie
+--------------------------------------------------------------------
+来源      https://github.com/dhammikamare/android-walkie-talkie
+许可证    MIT
+状态      仅参考 MulticastSocket.joinGroup + MulticastLock 的组播范式，
+          不引入其源码；热点下产品链路使用多份单播转发以保证可靠性
+
+--------------------------------------------------------------------
+明确不引入的仓库
+--------------------------------------------------------------------
+  * js-labs/WalkieTalkie — AGPL-3.0-or-later，§13 网络使用条款会覆盖
+    整个合并作品，除非项目整体改挂 AGPL，否则不复制其代码。
+  * zthenea/MotoIntercom — 无 LICENSE 文件，默认「保留所有权利」。
+    其 startLocalOnlyHotspot 实现不可复制；如需 App 内一键开热点，
+    只能按 Android 官方 API clean-room 重写。
+  * 其他无 LICENSE 或商业授权不明的仓库（JohnDovey/WalkieTalkie、
+    danInAustralia/WalkieTalkie、waterfoxfox/Audio3AProcess、
+    monkey1992/HWAudioProcessSDK、theeasiestway/android-opus-codec 封装层）。
+  * pjsip/pjproject（GPL-2.0-or-later）、devapro/ptt-client-android、
+    nontec/Volna：许可证现已兼容，但其默认缓冲（100ms 采集、
+    140-160ms 播放、400ms 播放缓冲）与 120ms 目标冲突，不进主链路。
+
+如需核验，请以各上游仓库随附的 LICENSE 文件为准。

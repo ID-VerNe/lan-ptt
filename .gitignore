@@ -1,0 +1,42 @@
+# Research / tooling artifacts — intentionally NOT part of the product repo.
+# .glue/ contains 14 cloned upstream repositories and Deep Mode reports.
+# .workbuddy/ is WorkBuddy project data.
+.glue/
+.workbuddy/
+.screenshots/
+
+# Flutter / Dart
+.dart_tool/
+.packages
+.pub/
+.pub-cache/
+build/
+coverage/
+.flutter-plugins
+.flutter-plugins-dependencies
+*.log
+
+# Android / Gradle (added when the Android module lands in P0)
+android/.gradle/
+android/local.properties
+android/app/build/
+android/build/
+android/captures/
+*.keystore
+*.jks
+
+# IDE / editor
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local secrets / env
+.env
+*.env.local

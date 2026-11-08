@@ -1,0 +1,13 @@
+# Normalize text files; keep generated binaries untouched.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.so  binary
+*.aar binary
+*.jar binary
+*.keystore binary
+*.jks  binary

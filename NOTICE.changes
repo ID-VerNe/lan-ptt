@@ -1,0 +1,29 @@
+# NOTICE.changes
+
+> Apache License 2.0 §4(b) 要求：对移植文件必须标注「已修改」。
+> 本文件逐项记录 lan-ptt 对 Apache-2.0 上游
+> `Starlordzz/sunsetripple`（commit `0ffd8c40`）所做的改动。
+> 原始版权与许可声明均保留在各文件头部与 `THIRD_PARTY_NOTICES` 中。
+
+## 本次（骨架版本，2026-11-08）
+
+| 文件 | 上游对应文件 | 修改内容 |
+|---|---|---|
+| `lib/core/protocol/frame.dart` | `lib/core/protocol/frame.dart` | ① 新增 SPDX、原版权（Apache-2.0）与修改方（GPL-3.0-or-later）声明头；② 把 `_capPayload` 与 `maxPayloadSize` 注释里过时的「聊天帧」表述改为「控制帧」；③ 局部变量补显式类型以适配 `analysis_options.yaml` 的 `strict-raw-types`。**编解码逻辑、字段、常量、错误行为完全未改。** |
+| `lib/core/protocol/frame_type.dart` | `lib/core/protocol/frame_type.dart` | ① 新增同上声明头；② 删除 `handshakeHello(0x09)` / `handshakeConfirm(0x0a)` / `sealed(0x0b)`（不加密）与 `chat(0x0c)` / `chatSync(0x0d)` / `chatDelete(0x0e)`（不做聊天）共 6 类，保留原有数值不变的 8 类；③ 修正上游文件头「11 supported binary frame types」的过时注释；④ 补枚举 doc comment 与显式类型。**`fromValue` 的查找逻辑未改。** |
+
+## 后续阶段需追加的条目（届时必须补记）
+
+P0 移植会话/传输层时会删掉加密耦合（`sessionToken`、`FrameType.sealed` 分支、
+`bindMemberForSessionToken`、`lib/core/security/*`），并调整
+`JitterBuffer.kt` 的 `prebufferFrames 3→2` 与 `PlatformAudioPlugin.kt` 的
+AudioRecord/AudioTrack buffer `*4→*2`；P1 会把 `OpusCodec.kt` 换成
+Oboe + libopus JNI 门面。每一项都须在本文件登记「改了什么、为什么」。
+
+## 授权说明
+
+- 上游文件仍以 **Apache-2.0** 授权（见 `licenses/Apache-2.0.txt`）。
+- lan-ptt 对它们的修改部分以 **GPL-3.0-or-later** 提供。
+- 合并作品整体以 **GPL-3.0-or-later** 发布（见 `LICENSE`）。
+  Apache-2.0 与 GPLv3 兼容、与 GPLv2 不兼容，故不得将本项目改为
+  GPL-2.0-only。
